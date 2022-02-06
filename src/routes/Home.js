@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import Movie from "./components/Movie.js";
-
+import Movie from "../components/Movie.js";
 function Home() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
@@ -17,11 +16,10 @@ function Home() {
   useEffect(() => {
     getMovies();
   }, []);
-  console.log(movies);
   return (
     <div>
       {loading ? (
-        <h1>Hello Movie</h1>
+        <h1>Loading..</h1>
       ) : (
         <div>
           {movies.map((movie) => (
