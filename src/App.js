@@ -1,36 +1,24 @@
 import { useState, useEffect } from "react";
 
+function Hello() {
+  useEffect(() => {
+    console.log("create");
+    return () => console.log("bye");
+  }, []);
+  //cleanUp function
+  //cleanUp을 사용하게 되면 컴포넌트가 언제 create되었고, destoryed되었는지 시점 확인 가능
+  //컴포넌트가 파괴될 때 hiFn이 return한 byeFn을 실행
+
+  return <h1>Hello</h1>;
+}
+
 function App() {
-  const [counter, setValue] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const onClick = () => setValue((prev) => prev + 1);
-  const onChnage = (e) => setKeyword(e.target.value);
-
-  useEffect(() => {
-    console.log("I run only once");
-  }, []); // 배열에 값이 없기 때문에 화면 로드시 한번만 render
-
-  useEffect(() => {
-    console.log("I run when 'keyword' changes");
-  }, [keyword]); // keyword가 변화할때마다 render
-
-  useEffect(() => {
-    console.log("I run when 'counter' changes");
-  }, [counter]); // counter 변화할때마다 render
-
-  useEffect(() => {
-    console.log("I run when keyword & counter change");
-  }, [keyword, counter]); // keyword & counter 변화할때마다 render
+  const [showing, setShowing] = useState(false);
+  const onClick = () => setShowing((prev) => !prev);
   return (
     <div>
-      <input
-        value={keyword}
-        onChange={onChnage}
-        type="text"
-        placeholder="Search here "
-      />
-      <h1>{counter}</h1>
-      <button onClick={onClick}>click me</button>
+      {showing ? <Hello /> : null}
+      <button onClick={onClick}>{showing ? "Hide" : "show"}</button>
     </div>
   );
 }
